@@ -2,20 +2,20 @@ import React from 'react'
 import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useState } from 'react';
-import { useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { useContext } from 'react'
-import CardGroup from 'react-bootstrap/CardGroup';
-
 import { CurrentlyReadContex } from './CurrentlyReadContext';
 import { BooksContex } from './BooksContex';
 import { WantToReadContex } from './WantToReadContex';
 import { ReadContex } from './ReadContex';
+import {SelectedBookContex } from './SelectedBookContex';
 const items = ["CurrentlyRead", "wantToRead", "Read"];
 
 
 export default function Hello(props) {
 
     const[cardindex,setcardinfo]=useState();
+    const{SelectedBook,SetSelectedBook}=useContext(SelectedBookContex);
     const [selectedItem, setSelectedItem] = useState("");
     const {currentlyRead,SetCurrentlyRead}=useContext(CurrentlyReadContex);
     const {WantToRead,SetWantToRead}=useContext( WantToReadContex);
@@ -25,9 +25,6 @@ export default function Hello(props) {
 
     const deleteItemm=(index)=> {
       SetBooks((Books) => Books.filter((_, i) => i !== index));
-
-
-
     }
 
    
@@ -43,7 +40,6 @@ export default function Hello(props) {
         SetWantToRead(WantToRead.concat([props.book]))
       }
     if(currentlyRead.includes(props.book) ){
-        console.log("why")
         //SetCurrentlyRead((currentlyRead) => currentlyRead.filter((_, i) => i !== props.index));
 
       }
@@ -57,6 +53,8 @@ export default function Hello(props) {
     }
     return (
         <Card className="col-3 justify-content-between justify-space-between" onClick={()=>{
+          SetSelectedBook(props.book)
+
           if(!currentlyRead.includes(props.book) ){
 
           SetCurrentlyRead(currentlyRead.concat([props.book]))
@@ -71,10 +69,11 @@ export default function Hello(props) {
               <Card.Text>
                 <p>{props.book.volumeInfo.authors}
                          </p>
-                         <p>
-                         </p>
+                         
+                        
 
               </Card.Text>
+              <Link to="/details" book={props.book} >Details</Link>
               <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
         Edit
@@ -88,9 +87,7 @@ export default function Hello(props) {
           ))}
         </Dropdown.Menu>
     </Dropdown>
-   <p>
-    {selectedItem}
-   </p>
+
             </Card.Body>
           </Card>
 

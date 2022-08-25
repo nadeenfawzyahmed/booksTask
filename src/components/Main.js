@@ -1,15 +1,6 @@
 import React from 'react'
-import Card from 'react-bootstrap/Card';
-import Dropdown from 'react-bootstrap/Dropdown';
-
-import CardGroup from 'react-bootstrap/CardGroup';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import { useContext } from 'react';
 import CardBook from './CardBook';  
-
-
-import Row from 'react-bootstrap/Row';
 import { CurrentlyReadContex } from './CurrentlyReadContext';
 import { WantToReadContex } from './WantToReadContex';
 import { ReadContex } from './ReadContex';
