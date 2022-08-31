@@ -20,7 +20,7 @@ root.render(
     
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="details" element={<BookDetails />} />
+      <Route path="details/:title" element={<BookDetails />} />
     </Routes>
     </BrowserRouter>
 

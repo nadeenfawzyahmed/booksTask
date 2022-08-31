@@ -73,7 +73,7 @@ export default function Hello(props) {
                         
 
               </Card.Text>
-              <Link to="/details" book={props.book} >Details</Link>
+              <Link to={"/details/"+props.book.id} >Details</Link>
               <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
         Edit
