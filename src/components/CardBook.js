@@ -27,7 +27,6 @@ export default function Hello(props) {
       SetBooks((Books) => Books.filter((_, i) => i !== index));
     }
 
-   
     if(selectedItem=="CurrentlyRead"){
       if(!currentlyRead.includes(props.book) ){
 
@@ -39,8 +38,10 @@ export default function Hello(props) {
 
         SetWantToRead(WantToRead.concat([props.book]))
       }
+
     if(currentlyRead.includes(props.book) ){
-        //SetCurrentlyRead((currentlyRead) => currentlyRead.filter((_, i) => i !== props.index));
+      console.log("yes");
+       // SetCurrentlyRead((currentlyRead) => currentlyRead.filter((_, i) => i !== props.book.index));
 
       }
     }
@@ -50,6 +51,11 @@ export default function Hello(props) {
 
         SetRead(Read.concat([props.book]))
       }
+      if(currentlyRead.includes(props.book) ){
+        console.log("yes");
+         // SetCurrentlyRead((currentlyRead) => currentlyRead.filter((_, i) => i !== props.book.index));
+  
+        }
     }
     return (
         <Card className="col-3 justify-content-between justify-space-between" onClick={()=>{

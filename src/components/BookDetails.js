@@ -8,48 +8,48 @@ import axios from 'axios';
 
 
 export default function Hello(props) {
-    const { title } = useParams();
-    const [bookDetails, setbookDetails] = useState("");
+  const { title } = useParams();
+  const [isLoaded, setLoad] = useState(false);
+  const [bookDetails, setbookDetails] = useState([]);
 
-  
-    useEffect(() => {
-        const url = "https://www.googleapis.com/books/v1/volumes?q="+title
-         axios.get(url)
-        .then(response=>setbookDetails("done"))
-        
-          console.log(url,bookDetails ) 
-   
-      }, []);
-      useEffect(() => {
-        const url = "https://www.googleapis.com/books/v1/volumes?q="+title
-        fetch(url) 
-        .then(res => setbookDetails(res.json()))
+  console.log("Title", title);
 
 
-        
-          console.log(bookDetails ) 
-   
-      }, []);
-    return (
-        <div>
-            <Card className="col-8 justify-content-between justify-space-between"  >
-            <Card.Img variant="top" src="" />
-            <Card.Body>
-              <Card.Title>{bookDetails.publishedDate}</Card.Title>
-              <Card.Text>
-                <p>hi
-                         </p>
-                         
-                        
+  useEffect(() => {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${title}`
+    axios.get(url)
+      .then(response => {
+        setbookDetails(response.data.items[0]);
+        setLoad(true);
+        console.log("axios", bookDetails);
+      }
+      )
+  }, [title]);
 
-              </Card.Text>
-          
+  return (
+    <div>
+      {console.log("render", bookDetails)}
+      <Card className="col-6 justify-content-between justify-space-between"  >
+        <Card.Img variant="top" src={isLoaded && bookDetails.volumeInfo.imageLinks.smallThumbnail} />
+        <Card.Body>
+          {isLoaded && <Card.Title>{bookDetails.volumeInfo.title}</Card.Title>}
+          <Card.Text>
+            <p>country {isLoaded && bookDetails.saleInfo.country}</p>
+            <p>
+              saleability{isLoaded && bookDetails.saleInfo.saleability}
+            </p>
+            <p>
+              publish date:{isLoaded && bookDetails.volumeInfo.publishedDate}
+            </p>
 
-     
+          </Card.Text>
 
-            </Card.Body>
-          </Card>
 
-        </div>
-    )
+
+
+        </Card.Body>
+      </Card>
+
+    </div>
+  )
 }
